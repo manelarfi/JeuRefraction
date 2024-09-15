@@ -6,13 +6,13 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
 
-public class controlAR : MonoBehaviour
+public class controlAV : MonoBehaviour
 {
     public TextMeshProUGUI textVal;
     public AV aV;
     private double num;
 
-    public void IncreaseAR() {
+    public void IncreaseAV() {
         num = StringToDouble();
         num += 0.1;
         if (num < 1.3) {
@@ -23,7 +23,7 @@ public class controlAR : MonoBehaviour
         
     }
 
-    public void DecreaseAR() {
+    public void DecreaseAV() {
         num = StringToDouble();
         num -= 0.1;
         if (num >= 0) {

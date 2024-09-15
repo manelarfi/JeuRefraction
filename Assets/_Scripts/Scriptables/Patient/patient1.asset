@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8c02007933e3b34bafdb4ee3a0fd2f4, type: 3}
+  m_Name: patient1
+  m_EditorClassIdentifier: 
+  patientName: john
+  age: 35
+  gender: male
+  AccMax: 0
+  AccComfort: 0
+  AR: {fileID: 0}
+  SR: {fileID: 0}
+  medicalHistory: No prior eye surgeries, mild myopia diagnosed at age 15.
+  currentTreatment: Wearing glasses with -1.25D correction for both eyes.

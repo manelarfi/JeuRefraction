@@ -14,14 +14,24 @@ public class PatientSO : ScriptableObject
     public float AccComfort; //Accommodation de confort = acc max/2
     public RefractionSO AR;
     public RefractionSO SR;
+    public EyeController OD;
+    public EyeController OG;
+
     
     [Header("Additional Information")]
     public string medicalHistory;
     public string currentTreatment;
 
-    private void Start() {
+    public void SetAccMax() {
         AccMax = 15 - (age/4);
+    }
+
+    public void SetAccComfort() {
         AccComfort = AccMax/2;
+    }
+
+    public RefractionSO GetAR() {
+        return AR;
     }
 
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class DecreaseValueSet : Singleton<DecreaseValueSet>
 {
@@ -23,7 +24,6 @@ public class DecreaseValueSet : Singleton<DecreaseValueSet>
             // Try to parse the text as a double
             if (double.TryParse(val, out double num)) {
                 num -= 0.25;
-                Debug.Log(num);
 
                 // Format the number with 2 decimal places
                 val = num.ToString("F2");
@@ -35,11 +35,18 @@ public class DecreaseValueSet : Singleton<DecreaseValueSet>
                     textMeshPro.text = val; // negative sign is automatically included if number is negative
                 }
 
+                GameEvents.Instance.ButtonClicked();
+
             } else {
                 Debug.LogWarning("The text is not a valid number.");
             }
         } else {
             Debug.LogError("TextMeshProUGUI component not found on the selected object.");
         }
+    }
+
+    internal int GetCurrentVA()
+    {
+        throw new NotImplementedException();
     }
 }

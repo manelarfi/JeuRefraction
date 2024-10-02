@@ -1,52 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting;
 
-public class controlAV : MonoBehaviour
+public class ControlVA : Singleton<ControlVA> 
 {
+    // Thresholds for visual acuity levels
+    private double[] acuityLevels = { 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2 };
     public TextMeshProUGUI textVal;
-    public AV aV;
-    private double num;
+    private int currentLevelIndex;
 
-    public void IncreaseAV() {
-        num = StringToDouble();
-        num += 0.1;
-        if (num < 1.3) {
-            textVal.text = DoubleToString(num);
-            aV.SetLettersArray();
-            aV.RandomizeLetters();
+    private void Start()
+    {
+        // Initialize currentLevelIndex to the appropriate level based on visualAcuityLevel
+        currentLevelIndex = System.Array.IndexOf(acuityLevels, currentLevelIndex);
+        if (currentLevelIndex == -1)
+        {
+            currentLevelIndex = 10; // Default to 20/20 if not found (adjust if needed)
         }
-        
+        UpdateVisualAcuityText();
     }
 
-    public void DecreaseAV() {
-        num = StringToDouble();
-        num -= 0.1;
-        if (num >= 0) {
-            textVal.text = DoubleToString(num);
-            aV.SetLettersArray();
-            aV.RandomizeLetters();
-        }
-    }
-
-    private double StringToDouble() {
-        string val = textVal.text;
-
-        // Attempt to parse the string into a double, using invariant culture for consistency
-        if (double.TryParse(val, NumberStyles.Any, CultureInfo.InvariantCulture, out double parsedNum)) {
-                return parsedNum;
-        } else {
-            Debug.LogWarning("The text is not a valid number.");
-            return 0.0;  // Default to 0.0 if parsing fails
+    public void IncreaseAV()
+    {
+        if (currentLevelIndex < acuityLevels.Length - 1)
+        {
+            currentLevelIndex++;
+            UpdateVisualAcuityText();
+            GameEvents.Instance.ButtonClicked();
         }
     }
 
-    private string DoubleToString(double num) {
-        // Convert the number back to a string using InvariantCulture for decimal consistency
-        return num.ToString("F1", CultureInfo.InvariantCulture);  // "F1" limits to 1 decimal place
+    public void DecreaseAV()
+    {
+        if (currentLevelIndex > 0)
+        {
+            currentLevelIndex--;
+            UpdateVisualAcuityText();
+            GameEvents.Instance.ButtonClicked();
+        }
+    }
+
+    public double GetCurrentVA()
+    {
+        return acuityLevels[currentLevelIndex];
+    }
+
+    private void UpdateVisualAcuityText()
+    {
+        textVal.text = acuityLevels[currentLevelIndex].ToString();
     }
 }

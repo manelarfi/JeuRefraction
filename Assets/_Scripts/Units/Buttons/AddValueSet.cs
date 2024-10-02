@@ -23,6 +23,8 @@ public class AddValueSet : Singleton<AddValueSet>
                 } else {
                     textMeshPro.text = val;
                 }
+
+                GameEvents.Instance.ButtonClicked();
                 
             } else {
                 Debug.LogWarning("The text is not a valid number.");

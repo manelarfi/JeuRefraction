@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8c02007933e3b34bafdb4ee3a0fd2f4, type: 3}
-  m_Name: patient1
+  m_Name: Patient1
   m_EditorClassIdentifier: 
-  patientName: john
+  patientName: John
   age: 35
   gender: male
   AccMax: 0
   AccComfort: 0
-  AR: {fileID: 0}
-  SR: {fileID: 0}
-  medicalHistory: No prior eye surgeries, mild myopia diagnosed at age 15.
-  currentTreatment: Wearing glasses with -1.25D correction for both eyes.
+  AR: {fileID: 11400000, guid: ca1bfe36caf53b543893eaf53ade41d4, type: 2}
+  SR: {fileID: 11400000, guid: ad053882e7eef4846afef015d32e4682, type: 2}
+  OD: {fileID: 11400000, guid: 2f704647ec7712f40b4c9609a5bf7bc4, type: 2}
+  OG: {fileID: 11400000, guid: bb412790b4729ae4b9e51cf77ea1c218, type: 2}
+  medicalHistory: 
+  currentTreatment: 

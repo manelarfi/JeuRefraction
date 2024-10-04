@@ -17,7 +17,7 @@ public class ChatController : MonoBehaviour
     // This function adds the chat to the conversation and handles reactions
     private void AddToChat(string patChat)
     {
-        GameObject DrBubble = Instantiate(DrBubblePrefab, chatPanel); // Instantiate doctor bubble
+        GameObject DrBubble = Instantiate(PatBubblePrefab, chatPanel); // Instantiate doctor bubble
         GameObject PatBubble = Instantiate(PatBubblePrefab, chatPanel); // Instantiate patient bubble
 
         loadChatInBubble(patChat, DrBubble, PatBubble); // Load chat in both bubbles

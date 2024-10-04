@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class SelectionManagerUI : Singleton<SelectionManagerUI>
 {
+    public GameObject Panel;
     
     public GraphicRaycaster uiRaycaster;
     public EventSystem eventSystem;
-    public RectTransform tableBounds; // Reference to the table bounds
 
     private SelectableUI currentSelected = null;
 
@@ -31,9 +31,17 @@ public class SelectionManagerUI : Singleton<SelectionManagerUI>
 
                 if (selectableUI != null)
                 {
-                    SelectObject(selectableUI);
-                    AddValueSet.Instance.selectedObject = selectableUI;
-                    DecreaseValueSet.Instance.selectedObject = selectableUI;
+                    if (selectableUI.gameObject.layer == (int)GameManager.Instance.State)
+                    {
+                        SelectObject(selectableUI);
+                        AddValueSet.Instance.selectedObject = selectableUI;
+                        DecreaseValueSet.Instance.selectedObject = selectableUI;
+                        
+                    } else 
+                    {
+                        Debug.Log("r");
+                        Panel.SetActive(true);
+                    }
                     break;
                 }
             }

@@ -6,14 +6,23 @@ using UnityEngine.UI;
 
 public class GameManager : StaticInstance<GameManager>
 {
-    public TMP_Text state; // Text to display current state
-    public TMP_Text text;
+    //creating layers for different components and control layer access depending on the current slide
+    LayerMask Sphere ;
+    LayerMask Cylindre ;
+    LayerMask Axe ;
+    public TMP_Text state;
+    public GameObject changeDegButtons;
 
-    public PatientSO currentPatient; // Patient ScriptableObject reference
+    public PatientSO currentPatient; 
     public GameState State { get; private set; }
 
-    // Kick the game off with the first state
-    void Start() => ChangeState(GameState.Sphere);
+    
+    void Start() {
+        ChangeState(GameState.FoggingTechnique);
+        Sphere = LayerMask.GetMask("Sphere");
+        Cylindre = LayerMask.GetMask("Cylindre");
+        Axe = LayerMask.GetMask("Axe");
+    }
 
     // Method to handle changing game state
     public void ChangeState(GameState newState)
@@ -21,19 +30,18 @@ public class GameManager : StaticInstance<GameManager>
         State = newState;
         switch (newState)
         {
-            case GameState.Sphere:
-                handleSphere();
+            case GameState.FoggingTechnique:
+                handleFoggingTech();
                 break;
 
-            case GameState.Cylindre:
-                handleCylindre();
+            case GameState.CCR:
+                handleCCR();
                 break;
 
-            case GameState.Axe:
-                handleAxe();
+            case GameState.AxePower:
+                handleAxePower();
                 break;
         }
-
         Debug.Log($"New state: {newState}");
     }
     public void NextState()
@@ -49,27 +57,37 @@ public class GameManager : StaticInstance<GameManager>
     }
 
     // Method to handle the Sphere state
-    private void handleSphere()
+    private void handleFoggingTech()
     {
-        state.text = "sphere : methode brouillard";
+        state.text = "sphère au palier par la technique du brouillard";
+        SelectionManagerUI.Instance.uiLayerMasks.Clear();
+        SelectionManagerUI.Instance.uiLayerMasks.Add(LayerMask.GetMask("Sphere"));
+        Debug.Log("Added LayerMask: " + Sphere);
     }
 
     // Placeholder methods for other game states (add your logic here)
-    private void handleCylindre()
+    private void handleCCR()
     {
-        state.text = "cylindre : methode";
+        state.text = "l’axe méthode d’encadrement au CCR";
+        changeDegButtons.SetActive(true);
+        SelectionManagerUI.Instance.uiLayerMasks.Clear();
+        SelectionManagerUI.Instance.uiLayerMasks.Add(Axe);
     }
 
-    private void handleAxe()
+    private void handleAxePower()
     {
-        state.text = "axe : methode";
+        state.text = "cylindre : methode";
+        SelectionManagerUI.Instance.uiLayerMasks.Clear();
+        SelectionManagerUI.Instance.uiLayerMasks.Add(Cylindre);
     }
 }
 
 // Enum for the various game states
 public enum GameState
 {
-    Sphere = 6,
-    Cylindre = 7,
-    Axe = 8
+    FoggingTechnique = 6,
+    CCR = 7,
+    AxePower = 8
 }
+
+//find another enum yesla7 for buttons and permissions to select

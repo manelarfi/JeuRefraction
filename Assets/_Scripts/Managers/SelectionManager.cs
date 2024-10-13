@@ -6,48 +6,58 @@ using UnityEngine.UI;
 public class SelectionManagerUI : Singleton<SelectionManagerUI>
 {
     public GameObject Panel;
-    
     public GraphicRaycaster uiRaycaster;
     public EventSystem eventSystem;
-
     private SelectableUI currentSelected = null;
+    public List<LayerMask> uiLayerMasks = new List<LayerMask>();
 
-    private void Update()
+void Update()
+{
+    if (Input.GetMouseButtonDown(0))
     {
-        if (Input.GetMouseButtonDown(0))
+        PointerEventData pointerEventData = new PointerEventData(eventSystem)
         {
-            PointerEventData pointerEventData = new PointerEventData(eventSystem)
+            position = Input.mousePosition
+        };
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        uiRaycaster.Raycast(pointerEventData, results);
+
+        foreach (RaycastResult result in results)
+        {
+            // Check if the UI element's layer matches any of the LayerMasks in the list
+            bool isLayerValid = false;
+            foreach (LayerMask layerMask in uiLayerMasks)
             {
-                position = Input.mousePosition
-            };
-
-            List<RaycastResult> results = new List<RaycastResult>();
-            uiRaycaster.Raycast(pointerEventData, results);
-
-        
-            foreach (RaycastResult result in results)
-            {
-                SelectableUI selectableUI = result.gameObject.GetComponent<SelectableUI>();
-
-                if (selectableUI != null)
+                if (((1 << result.gameObject.layer) & layerMask) != 0)
                 {
-                    if (selectableUI.gameObject.layer == (int)GameManager.Instance.State)
-                    {
-                        SelectObject(selectableUI);
-                        AddValueSet.Instance.selectedObject = selectableUI;
-                        DecreaseValueSet.Instance.selectedObject = selectableUI;
-                        
-                    } else 
-                    {
-                        Debug.Log("r");
-                        Panel.SetActive(true);
-                    }
+                    isLayerValid = true;
                     break;
                 }
             }
 
+                SelectableUI selectableUI = result.gameObject.GetComponent<SelectableUI>();
+
+                if (selectableUI != null)
+                {
+                    if (isLayerValid)
+                    {
+                        SelectObject(selectableUI);
+                        AddValueSet.Instance.selectedObject = selectableUI;
+                        DecreaseValueSet.Instance.selectedObject = selectableUI;
+                    }
+                    else
+                    {   
+                        Panel.SetActive(true);
+                        Debug.Log("Layer does not match GameManager state");
+                    }
+                    break;
+                    
+                }
         }
     }
+}
+
 
     private void SelectObject(SelectableUI selectedObject)
     {
@@ -78,6 +88,5 @@ public class SelectionManagerUI : Singleton<SelectionManagerUI>
     public SelectableUI GetSelectableUI() {
         return currentSelected;
     }
-
     
 }

@@ -4,9 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Sphere
-  - Cylindre
-  - Axe
+  - SD
+  - SG
+  - CD
+  - DG
+  - AD
+  - AG
+  - CG
   layers:
   - Default
   - TransparentFX

@@ -4,6 +4,8 @@ using Unity.VisualScripting; // Make sure you have TextMeshPro imported
 
 public class RefractionManager : Singleton<GameManager>
 {
+    //Reference to different Interfaces
+    public FoggingPhase FoggingPhaseIn;
     // Reference to the current patient
     PatientSO currentPatient;
     // Reference to the AR ScriptableObject
@@ -35,8 +37,12 @@ public class RefractionManager : Singleton<GameManager>
         return;
     }
 
-    GameEvents.Instance.OnButtonClicked += checkForAnswer;
+    GameEvents.Instance.OnButtonClicked += SubscribeMethod;
 }
+
+    private void Update() {
+        SubscribeMethod();
+    }
 
 
     public void LoadAR()
@@ -45,17 +51,18 @@ public class RefractionManager : Singleton<GameManager>
         ARTableManager.Instance.LoadData(AR);
     }
 
+    //look into this later (kayen plus que 3 state)
     public void LoadIntoPresc () {
         switch (GameManager.Instance.State) {
-            case GameState.Sphere:
+            case GameState.FoggingTechnique:
                 LoadSphere();
                 break;
 
-            case GameState.Cylindre:
+            case GameState.AxePower:
                 LoadCylindre();
                 break;
 
-            case GameState.Axe:
+            case GameState.CCR:
                 LoadAxe();
                 break;
         }
@@ -75,30 +82,15 @@ public class RefractionManager : Singleton<GameManager>
         PrescTableManager.Instance.AD = MTableManager.Instance.AD;
         PrescTableManager.Instance.AG = MTableManager.Instance.AG;
     }
-    
 
-    private void checkForAnswer() {
+    public void SubscribeMethod() {
+        switch(GameManager.Instance.State) {
+            case GameState.FoggingTechnique:
+                FoggingPhaseIn.GetPatAnswer(currentPatient);
+                break;
 
-        if (SelectionManagerUI.Instance.GetSelectableUI() != null) {
-            GameObject selectedObj = SelectionManagerUI.Instance.GetSelectableUI().gameObject;
-            string answer;
-            switch (selectedObj.name) {
-                case "SPD":
-                    answer = OD.GetPatientAnswers(ControlVA.Instance.GetCurrentVA(), MTableManager.Instance.SD);
-                    if (answer != null) {
-                        GameEvents.Instance.ChangeDetected(answer);
-                    }
-                    break;
-
-                case "SPG":
-                    answer = OD.GetPatientAnswers(ControlVA.Instance.GetCurrentVA(), MTableManager.Instance.SG);
-                    if (answer != null) {
-                        GameEvents.Instance.ChangeDetected(answer);
-                    }
-                    break;
-
-                // Add cases for other fields (CPD, CPG, etc.) if necessary
-            }
         }
     }
+
+        
 }

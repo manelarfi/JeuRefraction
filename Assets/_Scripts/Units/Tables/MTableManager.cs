@@ -88,4 +88,27 @@ public class MTableManager : Singleton<MTableManager>
             AG = AR.APG;
         }
     }
+
+    public double FindElement(string TAG)
+{
+    switch (TAG)
+    {
+        case "SG":
+            return SG;
+        case "SD":
+            return SD;
+        case "CG":
+            return CG;
+        case "CD":
+            return CD;
+        case "AG":
+            return AG;
+        case "AD":
+            return AD;
+        default:
+            Debug.LogError("Invalid tag: " + TAG);
+            return 0.0; // Default value in case of no match
+    }
+}
+
 }

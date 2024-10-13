@@ -13,3 +13,8 @@ MonoBehaviour:
   m_Name: ControllerOG
   m_EditorClassIdentifier: 
   VAcheck: []
+  AxeCheck:
+  - position: 1
+    chat: []
+  - position: 2
+    chat: []

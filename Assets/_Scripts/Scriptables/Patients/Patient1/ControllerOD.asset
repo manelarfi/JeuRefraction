@@ -15,11 +15,14 @@ MonoBehaviour:
   VAcheck:
   - VA: 0.1
     chat:
-    - minS: -1
-      maxS: 1
+    - min: -1
+      max: 1
       patientAnswer: shalut
-  - VA: 0.1
+  AxeCheck:
+  - position: 1
     chat:
-    - minS: -1
-      maxS: 1
-      patientAnswer: shalut
+    - min: 0
+      max: 0
+      patientAnswer: 
+  - position: 2
+    chat: []

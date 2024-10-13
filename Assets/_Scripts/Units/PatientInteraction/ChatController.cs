@@ -14,6 +14,7 @@ public class ChatController : MonoBehaviour
     private void Start() {
         GameEvents.Instance.onChangeDetected += AddToChat;
     }
+    
     // This function adds the chat to the conversation and handles reactions
     private void AddToChat(string patChat)
     {

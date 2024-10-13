@@ -8,6 +8,7 @@ public class GameEvents : Singleton<GameEvents>
 {
     public delegate void OnChangeDetected(string answer);
     public event OnChangeDetected onChangeDetected;
+
     public event Action OnButtonClicked;
 
     public void ButtonClicked() {

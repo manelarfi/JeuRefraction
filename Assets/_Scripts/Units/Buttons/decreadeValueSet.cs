@@ -35,7 +35,7 @@ public class DecreaseValueSet : Singleton<DecreaseValueSet>
                     textMeshPro.text = val; // negative sign is automatically included if number is negative
                 }
 
-                GameEvents.Instance.ButtonClicked();
+                //GameEvents.Instance.ButtonClicked();
 
             } else {
                 Debug.LogWarning("The text is not a valid number.");

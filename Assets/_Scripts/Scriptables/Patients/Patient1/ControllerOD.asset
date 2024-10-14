@@ -21,8 +21,8 @@ MonoBehaviour:
   AxeCheck:
   - position: 1
     chat:
-    - min: 0
-      max: 0
-      patientAnswer: 
+    - min: 100
+      max: 180
+      patientAnswer: hhh
   - position: 2
     chat: []

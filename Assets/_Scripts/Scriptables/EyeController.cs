@@ -24,8 +24,32 @@ public class EyeController : ScriptableObject
         return null; // Return no message if no match
     }
 
-    
+    public string SearchAxe(int currentPos, double Axe) {
+
+        switch (currentPos) {
+            case 1:
+                return SearchAnswer(AxeCheck[0].chat, Axe);
+            
+            case 2:
+                return SearchAnswer(AxeCheck[1].chat, Axe);
+        }
+
+        return null;
+    }
+
+    public string SearchAnswer (List<ChatPatient> ChatPatient, double value) {
+        foreach(var e in ChatPatient) {
+            if (value >= e.min && value <= e.max) 
+            {
+                return e.patientAnswer;
+            }
+        }
+        return null;
+    }
+
 }
+
+
 
 [System.Serializable]
 public struct ChatPatient

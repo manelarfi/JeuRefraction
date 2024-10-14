@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Switch1_2Pos : MonoBehaviour
+public class Switch1_2Pos : Singleton<Switch1_2Pos>
 {
     public Image pos1;
     public Image pos2;

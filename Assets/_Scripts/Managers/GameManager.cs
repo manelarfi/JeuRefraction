@@ -12,6 +12,7 @@ public class GameManager : StaticInstance<GameManager>
     LayerMask Axe ;
     public TMP_Text state;
     public GameObject changeDegButtons;
+    public GameObject changePosButtons;
 
     public PatientSO currentPatient; 
     public GameState State { get; private set; }
@@ -70,6 +71,7 @@ public class GameManager : StaticInstance<GameManager>
     {
         state.text = "l’axe méthode d’encadrement au CCR";
         changeDegButtons.SetActive(true);
+        changePosButtons.SetActive(true);
         SelectionManagerUI.Instance.uiLayerMasks.Clear();
         SelectionManagerUI.Instance.uiLayerMasks.Add(Axe);
     }
